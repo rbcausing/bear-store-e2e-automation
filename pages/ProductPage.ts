@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 
 export class ProductPage {
   constructor(private page: Page) {}
@@ -7,13 +7,15 @@ export class ProductPage {
     await this.page.getByRole('link', { name: 'Picture of All-Court' }).click();
   }
 
-  async addToCart(times = 3) {
-    for (let i = 0; i < times; i++) {
-      await this.page.getByRole('link', { name: ' Add to cart' }).click();
-    }
+  async addToCart(quantity = 3) {
+    await this.page.locator('#addtocart_13_AddToCart_EnteredQuantity').fill(quantity.toString());
+    await this.page.getByRole('link', { name: ' Add to cart' }).click();
   }
 
   async checkout() {
-    await this.page.getByRole('link', { name: ' Checkout' }).click();
+    const cartOverlay = this.page.locator('#offcanvas-cart');
+    await expect(cartOverlay).toBeVisible();
+    // Use a text locator to click the Checkout action
+    await cartOverlay.locator('text=/Checkout/i').first().click();
   }
 }
