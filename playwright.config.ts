@@ -6,7 +6,10 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,  // Prevent .only() in CI
   retries: process.env.CI ? 2 : 0,  // Retry failed tests in CI
   workers: process.env.CI ? 1 : undefined,  // Parallel workers
-  reporter: 'html',  // Generate HTML reports
+  reporter: [
+    ['junit', { outputFile: 'playwright-report/results.xml' }],
+    ['html']
+  ],  // Generate JUnit and HTML reports
   use: {
     trace: 'on-first-retry',  // Trace on retry for debugging
     baseURL: 'https://bearstore-testsite.smartbear.com/',  // Target site
