@@ -16,9 +16,12 @@ export class ProductPage {
     const cartOverlay = this.page.locator('#offcanvas-cart');
     await expect(cartOverlay).toBeVisible();
 
-    // Try both link and button roles, and wait for visibility
-    const checkoutButton = cartOverlay.getByRole('link', { name: /Checkout/i }).first();
+    // Try a text-based locator for "Checkout"
+    const checkoutButton = cartOverlay.locator('text=/Checkout/i').first();
     await expect(checkoutButton).toBeVisible({ timeout: 5000 });
     await checkoutButton.click();
+
+    // If this still fails, uncomment the next line to debug the overlay's HTML:
+    // console.log(await cartOverlay.innerHTML());
   }
 }
