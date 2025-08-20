@@ -20,23 +20,49 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'npm install'
-                bat 'npx playwright install'
+                script {
+                    if (isUnix()) {
+                        sh 'npm install'
+                        sh 'npx playwright install'
+                    } else {
+                        bat 'npm install'
+                        bat 'npx playwright install'
+                    }
+                }
             }
         }
 
         stage('Run Playwright Tests') {
             steps {
-                bat 'npx playwright test --reporter=junit,html'
+                script {
+                    if (isUnix()) {
+                        sh 'npx playwright test --reporter=junit,html'
+                    } else {
+                        bat 'npx playwright test --reporter=junit,html'
+                    }
+                }
             }
         }
 
         stage('Generate Report') {
             steps {
-            bat 'npx playwright show-report &'
-            sleep 5
+                script {
+                    if (isUnix()) {
+                        sh 'npx playwright show-report &'
+                    } else {
+                        bat 'npx playwright show-report &'
+                    }
+                    // Wait up to 30 seconds for the report index.html to exist
+                    int retries = 30
+                    while (retries > 0) {
+                        if (fileExists('playwright-report/index.html')) {
+                            break
+                        }
+                        sleep 1
+                        retries--
+                    }
+                }
             }
-        }
         }
     }
 
