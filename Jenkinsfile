@@ -30,14 +30,7 @@ pipeline {
                 bat 'npx playwright test --reporter=junit,html'
             }
         }
-
-        stage('Generate Report') {
-            steps {
-            bat 'npx playwright show-report --host 0.0.0.0 --port 9323'
-            bat 'timeout 5'
-            }
-        }
-        }
+    }
     
 
     post {
