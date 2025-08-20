@@ -7,7 +7,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,  // Retry failed tests in CI
   workers: process.env.CI ? 1 : undefined,  // Parallel workers
   reporter: [
-    ['junit', { outputFile: 'playwright-report/results.xml' }],
+    ['junit', { outputFile: 'results.xml' }],
     ['html']
   ],  // Generate JUnit and HTML reports
   use: {
