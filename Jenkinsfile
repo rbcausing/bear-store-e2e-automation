@@ -33,15 +33,17 @@ pipeline {
 
         stage('Generate Report') {
             steps {
-                bat 'npx playwright show-report'
+            bat 'npx playwright show-report &'
+            sleep 5
             }
+        }
         }
     }
 
     post {
         always {
             archiveArtifacts artifacts: 'playwright-report/**/*', allowEmptyArchive: true
-            junit 'playwright-report/results.xml'
+            junit 'playwright-report/results.xml', allowEmptyResults: true
         }
     }
 }

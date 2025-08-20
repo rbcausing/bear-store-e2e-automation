@@ -36,6 +36,6 @@ export class CheckoutPage {
   }
 
   async verifyOrderPlaced() {
-    await this.page.getByText('Your order number:').waitFor();
+    await this.page.getByText('Your order number:').waitFor({ timeout: 10000 });
   }
 }
