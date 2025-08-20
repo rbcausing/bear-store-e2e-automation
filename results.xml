@@ -1,0 +1,6 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="13.537809">
+<testsuite name="BasketballPurchaseCheckout.spec.ts" timestamp="2025-08-20T18:26:47.049Z" hostname="chromium" tests="1" failures="0" skipped="0" time="10.857" errors="0">
+<testcase name="Basketball purchase checkout" classname="BasketballPurchaseCheckout.spec.ts" time="10.857">
+</testcase>
+</testsuite>
+</testsuites>

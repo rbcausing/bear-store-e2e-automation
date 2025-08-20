@@ -15,7 +15,10 @@ export class ProductPage {
   async checkout() {
     const cartOverlay = this.page.locator('#offcanvas-cart');
     await expect(cartOverlay).toBeVisible();
-    // Use a text locator to click the Checkout action
-    await cartOverlay.locator('text=/Checkout/i').first().click();
+
+    // Try both link and button roles, and wait for visibility
+    const checkoutButton = cartOverlay.getByRole('link', { name: /Checkout/i }).first();
+    await expect(checkoutButton).toBeVisible({ timeout: 5000 });
+    await checkoutButton.click();
   }
 }
